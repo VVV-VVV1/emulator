@@ -19,14 +19,14 @@ public:
 
     void reset();
     void step();
-
-
     void loadWord(uint16_t address, uint16_t value);
 
     uint16_t getPC() const;
     std::size_t getSP() const;
     uint16_t getTop() const;
+    uint16_t readWord(uint16_t address) const;
 
+    bool isHalted() const;
 
 private:
     Memory memory;
