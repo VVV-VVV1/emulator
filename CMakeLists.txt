@@ -3,4 +3,10 @@ project(emulator)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(emulator main.cpp)
+add_executable(emulator main.cpp
+        Memory.h
+        Memory.cpp
+        RegisterStack.cpp
+        RegisterStack.h
+        CPU.cpp
+        CPU.h)
