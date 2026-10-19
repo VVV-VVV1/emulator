@@ -44,6 +44,7 @@ void CPU::step() {
 
     // EXECUTE: остальные команды
     switch (IR) {
+
         case 0x0001: { // ADD
             if (stack.size() < 2) {
                 throw std::underflow_error(
@@ -54,12 +55,27 @@ void CPU::step() {
             uint16_t b = stack.pop();
             uint16_t a = stack.pop();
 
-            uint16_t result =
-                static_cast<uint16_t>(a + b);
+            uint32_t fullResult =
+                static_cast<uint32_t>(a) + b;
 
+            uint16_t result =
+                static_cast<uint16_t>(fullResult);
+
+            FLAGS = 0;
+
+            if (result == 0) {
+                FLAGS |= FLAG_ZF;
+            }
+            if (fullResult > 0xFFFF) {
+                FLAGS |= FLAG_CF;
+            }
+            if (result & 0x8000) {
+                FLAGS |= FLAG_SF;
+            }
             stack.push(result);
             break;
         }
+
 
         case 0x0002: { // SUB
             if (stack.size() < 2) {
@@ -74,9 +90,21 @@ void CPU::step() {
             uint16_t result =
                 static_cast<uint16_t>(a - b);
 
+            FLAGS = 0;
+
+            if (result == 0) {
+                FLAGS |= FLAG_ZF;
+            }
+            if (a < b) {
+                FLAGS |= FLAG_CF;
+            }
+            if (result & 0x8000) {
+                FLAGS |= FLAG_SF;
+            }
             stack.push(result);
             break;
         }
+
 
         case 0x0003: { // DUP
             uint16_t value = stack.peek();
@@ -192,3 +220,18 @@ bool CPU::isHalted() const {
     return halted;
 }
 
+uint16_t CPU::getFLAGS() const {
+    return FLAGS;
+}
+
+
+std::size_t CPU::run(std::size_t maxSteps) {
+    std::size_t steps = 0;
+
+    while (!halted && steps < maxSteps) {
+        step();
+        ++steps;
+    }
+
+    return steps;
+}

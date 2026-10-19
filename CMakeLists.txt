@@ -9,4 +9,6 @@ add_executable(emulator main.cpp
         RegisterStack.cpp
         RegisterStack.h
         CPU.cpp
-        CPU.h)
+        CPU.h
+        Assembler.cpp
+        Assembler.h)

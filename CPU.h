@@ -28,6 +28,15 @@ public:
 
     bool isHalted() const;
 
+    static constexpr uint16_t FLAG_ZF = 0x0001;
+    static constexpr uint16_t FLAG_CF = 0x0002;
+    static constexpr uint16_t FLAG_SF = 0x0004;
+
+    uint16_t getFLAGS() const;
+
+    std::size_t run(std::size_t maxSteps = 100000);
+
+
 private:
     Memory memory;
     RegisterStack stack;
