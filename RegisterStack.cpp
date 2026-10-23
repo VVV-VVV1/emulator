@@ -63,3 +63,11 @@ void RegisterStack::clear() {
     registers.fill(0);
     sp = 0;
 }
+
+uint16_t RegisterStack::getAt(std::size_t index) const {
+    if (index >= sp) {
+        throw std::out_of_range("Stack index out of range");
+    }
+
+    return registers[index];
+}

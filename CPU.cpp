@@ -235,3 +235,11 @@ std::size_t CPU::run(std::size_t maxSteps) {
 
     return steps;
 }
+
+uint16_t CPU::getIR() const {
+    return IR;
+}
+
+uint16_t CPU::getStackAt(std::size_t index) const {
+    return stack.getAt(index);
+}

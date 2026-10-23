@@ -28,9 +28,13 @@ public:
 
     void clear();
 
+    uint16_t getAt(std::size_t index) const;
+
 private:
     std::array<uint16_t, SIZE> registers;
     std::size_t sp;
 };
+
+
 
 #endif //EMULATOR_REGISTERSTACK_H

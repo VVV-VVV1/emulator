@@ -36,6 +36,10 @@ public:
 
     std::size_t run(std::size_t maxSteps = 100000);
 
+    uint16_t getIR() const;
+
+    uint16_t getStackAt(std::size_t index) const;
+
 
 private:
     Memory memory;
